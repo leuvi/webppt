@@ -1,7 +1,7 @@
 import socket from './io'
 
 
-const names = ['京东吴彦祖', '智谷刘德华', '武侯金城武', '金融彭于晏']
+const names = ['吴彦祖', '古天乐', '金城武', '彭于晏', '梁朝伟']
 
 function setName() {
     if(localStorage.getItem('ppt_user')) {

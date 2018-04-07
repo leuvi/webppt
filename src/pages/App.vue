@@ -2,9 +2,9 @@
     <div class="wrap">
         <div class="scroller" id="scroller" :style="{transform: `translate3d(-${currentPage * innerWidth}px, 0, 0)`}">
             <!--引入ppt页面组件-->
-            <page1 />
-            <page2 />
-            <page3 />
+            <template v-for='page in pages'>
+                <component :is='page'></component>
+            </template>
         </div>
         <bgskin />
         <plugins />
@@ -17,26 +17,18 @@
     import socket from '../io'
     import bgskin from './bgskin.vue'
     import plugins from './plugins.vue'
-
-    //导入ppt页面组件
-    import page1 from './1.vue'
-    import page2 from './2.vue'
-    import page3 from './3.vue'
-
+    import * as details from './details/all'
 
     export default {
-        components: {
+        components: Object.assign({}, {
             bgskin,
             plugins,
-            //需要注册ppt页面
-            page1,
-            page2,
-            page3,
-        },
+        }, details.default),
         data() {
             return {
                 currentPage: 0,
-                innerWidth: 0
+                innerWidth: 0,
+                pages: Object.keys(details.default)
             }
         },
         created() {
@@ -103,5 +95,6 @@
         padding: 4%;
         font-size: 32px;
         color: #fff;
+        width: 100%;
     }
 </style>

@@ -39,9 +39,11 @@
             },
             add_barrage() {
                 const barrage = prompt('发个弹幕吧~')
-                socket.emit('message', {
-                    barrage: localStorage.getItem('ppt_user') + '：' + barrage
-                })
+                if(barrage) {
+                    socket.emit('message', {
+                        barrage: localStorage.getItem('ppt_user') + '：' + barrage
+                    })
+                }
             }
         }
     }

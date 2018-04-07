@@ -4,7 +4,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const util = require('./util')
 
-console.log(process.env.NODE_ENV)
+let pages = ''
+const glob = require('glob')
+
+glob('src/pages/details/*.vue', (err, file) => {
+  if(err) {
+    console.log(err)
+    return
+  }
+  pages = JSON.stringify(file)
+  console.log(pages)
+})
 
 module.exports = {
     entry: './src/index.js',
@@ -53,6 +63,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist/*']),
         new webpack.DefinePlugin({
+            'pages': JSON.stringify(pages),
             'siteUrl': JSON.stringify('http://' + util.getLocalIp() + ':' + process.env.npm_package_config_port)
         }),
         new HtmlWebpackPlugin({
